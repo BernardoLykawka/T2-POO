@@ -1,5 +1,7 @@
 package dados;
 
+import java.util.ArrayList;
+
 public class Acervo {
 	private ArrayList<Video> video;
 

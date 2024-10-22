@@ -24,6 +24,7 @@ public abstract class Video implements Imprimivel {
 	 * @see dados.Imprimivel#calculaCusto()
 	 */
 	public double calculaCusto() {
+		return 0;
 
 	}
 

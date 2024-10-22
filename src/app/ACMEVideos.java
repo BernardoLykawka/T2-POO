@@ -1,6 +1,12 @@
 package app;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import dados.Acervo;
+import dados.Filme;
+import dados.Seriado;
+import dados.Video;
 
 public class ACMEVideos {
 
@@ -24,6 +30,7 @@ public class ACMEVideos {
             String linha = br.readLine();
             while (linha != null) {
 
+               
                 String[] vetor = linha.split(";");
                 Integer codigo = Integer.parseInt(vetor[0]);
                 String codigoString = vetor[0];
@@ -33,7 +40,7 @@ public class ACMEVideos {
                 }
                 String titulo = vetor[1];
 
-                if ((codigoString.charAt(0).equals(1)) {       //se for filme
+                if (codigoString.charAt(0) == 1) {       //se for filme
 
                     String diretor = vetor[2];
                     Double duracao = Double.parseDouble(vetor[3]);
