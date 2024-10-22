@@ -20,6 +20,7 @@ public class ACMEVideos {
 
     public void processar() {
         leArquivos();
+        getTituloMaisLongo();
     }
 
     public void leArquivos() {
@@ -35,14 +36,27 @@ public class ACMEVideos {
                 Integer FilmeSerie = Integer.parseInt(vetor[0]);
                 Integer codigo = Integer.parseInt(vetor[1]);
 
+                boolean found = false;
                 for (Video v : acervo.getVideo()) {
                     if (codigo.equals(v.getCodigo())) {
-                        br.readLine();
+                        System.out.println("1: Erro - codigo de video repetido.");
+                        found = true;
                         break;
                     }
                 }
+                if (found) {
+                    linha = br.readLine();
+                    continue;
+                }
 
                 String titulo = vetor[2];
+
+                String confere = Integer.toString(codigo);
+                if (Character.getNumericValue(confere.charAt(0)) != FilmeSerie) {
+                    linha = br.readLine();
+                    continue;
+                }
+
 
                 if (FilmeSerie == 1) {                              //se for filme
 
@@ -77,5 +91,21 @@ public class ACMEVideos {
         } catch (IOException e) {
             System.out.println("Erro: " + e.getMessage());
         }
+    }
+
+    public void getTituloMaisLongo(){
+
+        if(acervo.getVideo().isEmpty()){
+            System.out.println("2: Erro - nenhum vídeo cadastrado.");
+        }
+
+        Video maisLongo = acervo.getVideo().getFirst();
+        for (Video v : acervo.getVideo()) {
+            if(v.getTitulo().length() > maisLongo.getTitulo().length()){
+                maisLongo = v;
+            }
+        }
+        String tituloMaisLongo = "2: "+  maisLongo.getCodigo()+ " - " +maisLongo.getTitulo();
+        System.out.println(tituloMaisLongo);
     }
 }
