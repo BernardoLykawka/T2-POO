@@ -5,7 +5,11 @@ import java.util.ArrayList;
 public class Acervo {
 	private ArrayList<Video> video;
 
-	public boolean addVideo(Video v) {
+	public Acervo() {
+		video = new ArrayList<>();
+	}
+
+	public boolean addVideo(dados.Video v) {
 		return video.add(v);
 	}
 

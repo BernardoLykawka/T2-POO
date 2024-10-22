@@ -32,28 +32,32 @@ public class ACMEVideos {
 
                
                 String[] vetor = linha.split(";");
-                Integer codigo = Integer.parseInt(vetor[0]);
-                String codigoString = vetor[0];
+                Integer FilmeSerie = Integer.parseInt(vetor[0]);
+                Integer codigo = Integer.parseInt(vetor[1]);
 
-                if (codigo == acervo.getVideo().getCodigo()) {
-                    break;
+                for (Video v : acervo.getVideo()) {
+                    if (codigo.equals(v.getCodigo())) {
+                        br.readLine();
+                        break;
+                    }
                 }
-                String titulo = vetor[1];
 
-                if (codigoString.charAt(0) == 1) {       //se for filme
+                String titulo = vetor[2];
 
-                    String diretor = vetor[2];
-                    Double duracao = Double.parseDouble(vetor[3]);
+                if (FilmeSerie == 1) {       //se for filme
 
-                    Filme video = new Filme(codigo,titulo,diretor,duracao);
+                    String diretor = vetor[3];
+                    Double duracao = Double.parseDouble(vetor[4]);
+
+                    video = new Filme(codigo,titulo,diretor,duracao);
 
                 } else {                                           //se for seriado
 
-                    Integer anoInicio = Integer.parseInt(vetor[2]);
-                    Integer anoFim = Integer.parseInt(vetor[3]);
-                    Integer numEpisodios = Integer.parseInt(vetor[4]);
+                    Integer anoInicio = Integer.parseInt(vetor[3]);
+                    Integer anoFim = Integer.parseInt(vetor[4]);
+                    Integer numEpisodios = Integer.parseInt(vetor[5]);
 
-                    Seriado video = new Seriado(codigo,titulo,anoInicio,anoFim,numEpisodios);
+                    video = new Seriado(codigo,titulo,anoInicio,anoFim,numEpisodios);
 
                 }
 
