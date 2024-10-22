@@ -16,7 +16,7 @@ public abstract class Video implements Imprimivel {
 	 * @see dados.Imprimivel#geraTexto()
 	 */
 	public String geraTexto() {
-		return null;
+		return getCodigo()+" = "+getTitulo();
 	}
 
 

@@ -35,4 +35,9 @@ public class Seriado extends Video {
 	public void setAnoFim(int anoFim) {
 		this.anoFim = anoFim;
 	}
+
+	@Override
+	public String geraTexto(){
+		return "1: "+getCodigo() + " - " + getTitulo() + " - " + getAnoInicio() + " - " + getAnoFim() + " - " + getNumEpisodios();
+	}
 }

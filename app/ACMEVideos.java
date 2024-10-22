@@ -44,24 +44,32 @@ public class ACMEVideos {
 
                 String titulo = vetor[2];
 
-                if (FilmeSerie == 1) {       //se for filme
+                if (FilmeSerie == 1) {                              //se for filme
+
+                    if(vetor.length != 5){
+                        break;
+                    }
 
                     String diretor = vetor[3];
                     Double duracao = Double.parseDouble(vetor[4]);
 
                     video = new Filme(codigo,titulo,diretor,duracao);
 
-                } else {                                           //se for seriado
+                } else {                                            //se for seriado
+
+                    if(vetor.length != 6){
+                        break;
+                    }
 
                     Integer anoInicio = Integer.parseInt(vetor[3]);
                     Integer anoFim = Integer.parseInt(vetor[4]);
                     Integer numEpisodios = Integer.parseInt(vetor[5]);
 
                     video = new Seriado(codigo,titulo,anoInicio,anoFim,numEpisodios);
-
                 }
 
 
+                System.out.println(video.geraTexto());                  // DEVE SAIR NO ARQUIVO .TXT
                 acervo.addVideo(video);
                 linha = br.readLine();
             }

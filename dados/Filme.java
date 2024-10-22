@@ -25,4 +25,9 @@ public class Filme extends Video {
 	public void setDuracao(double duracao) {
 		this.duracao = duracao;
 	}
+
+	@Override
+    public String geraTexto(){
+		return "1: "+getCodigo() + " - " + getTitulo() + " - " + getDiretor() + " - " + getDuracao();
+	}
 }
