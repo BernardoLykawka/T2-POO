@@ -3,6 +3,8 @@ package app;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 
 import dados.Acervo;
 import dados.Filme;
@@ -24,6 +26,7 @@ public class ACMEVideos {
         getTituloMaisLongo();
         getCustoMaisBaixo();
         getMaiorSeriado();
+        getDiretorMaisFilmes();
     }
 
     public void leArquivos() {
@@ -87,13 +90,13 @@ public class ACMEVideos {
                 }
 
 
-                System.out.println(video.geraTexto());                  // DEVE SAIR NO ARQUIVO .TXT
+                System.out.println("1: " + video.geraTexto());                  // DEVE SAIR NO ARQUIVO .TXT
                 acervo.addVideo(video);
                 linha = br.readLine();
             }
 
         } catch (IOException e) {
-            System.out.println("Erro: " + e.getMessage());
+            System.out.println("1: Erro: " + e.getMessage());
         }
     }
 
@@ -156,5 +159,40 @@ public class ACMEVideos {
 
         String maiorSeriadoTempo = "4: " + maiorSeriado.getCodigo() + " - " + maiorSeriado.getTitulo() + " = " + maiorSeriado.calculaTempo();
         System.out.println(maiorSeriadoTempo);
+    }
+
+    public void getDiretorMaisFilmes() {
+        if (acervo.getVideo().isEmpty()) {
+            System.out.println("5: Erro - nenhum filme cadastrado.");
+            return;
+        }
+
+        int numeroFilmes = 0;
+        Filme diretorMaisFilme = null;
+        int countMovies = 0;
+
+        for (Video v : acervo.getVideo()) {
+            if (v instanceof Filme) {
+                countMovies = 0;
+
+                for(Video vd : acervo.getVideo()) {
+                    if(vd instanceof Filme) {
+                        if(((Filme) vd).getDiretor().equals(((Filme) v).getDiretor())) {
+                            countMovies++;
+                        }
+                    }
+
+                    if(numeroFilmes < countMovies) {
+                        numeroFilmes = countMovies;
+                        diretorMaisFilme = (Filme) v;
+                    }
+                }
+            }
+        }
+        if(diretorMaisFilme == null) {
+            System.out.println("5: Erro - nenhum filme cadastrado.");
+            return;
+        }
+        System.out.println("5: " + diretorMaisFilme.getDiretor() + " - " + numeroFilmes);
     }
 }

@@ -12,20 +12,9 @@ public abstract class Video implements Imprimivel {
 	}
 
 
-	/**
-	 * @see dados.Imprimivel#geraTexto()
-	 */
-	public String geraTexto() {
-		return getCodigo()+" = "+getTitulo();
-	}
+	public abstract String geraTexto();
 
-
-	/**
-	 * @see dados.Imprimivel#calculaCusto()
-	 */
-	public double calculaCusto() {
-		return 0;
-	}
+	public abstract double calculaCusto();
 
 	public String getTitulo() {
 		return titulo;
