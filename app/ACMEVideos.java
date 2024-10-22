@@ -3,6 +3,7 @@ package app;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 import dados.Acervo;
 import dados.Filme;
 import dados.Seriado;
@@ -13,7 +14,7 @@ public class ACMEVideos {
     private Acervo acervo;
     private Video video;
 
-    public ACMEVideos(){
+    public ACMEVideos() {
         acervo = new Acervo();
     }
 
@@ -21,6 +22,8 @@ public class ACMEVideos {
     public void processar() {
         leArquivos();
         getTituloMaisLongo();
+        getCustoMaisBaixo();
+        getMaiorSeriado();
     }
 
     public void leArquivos() {
@@ -31,7 +34,7 @@ public class ACMEVideos {
             String linha = br.readLine();
             while (linha != null) {
 
-               
+
                 String[] vetor = linha.split(";");
                 Integer FilmeSerie = Integer.parseInt(vetor[0]);
                 Integer codigo = Integer.parseInt(vetor[1]);
@@ -60,18 +63,19 @@ public class ACMEVideos {
 
                 if (FilmeSerie == 1) {                              //se for filme
 
-                    if(vetor.length != 5){
+                    if (vetor.length != 5) {
                         break;
                     }
 
                     String diretor = vetor[3];
                     Double duracao = Double.parseDouble(vetor[4]);
 
-                    video = new Filme(codigo,titulo,diretor,duracao);
+
+                    video = new Filme(codigo, titulo, diretor, duracao);
 
                 } else {                                            //se for seriado
 
-                    if(vetor.length != 6){
+                    if (vetor.length != 6) {
                         break;
                     }
 
@@ -79,7 +83,7 @@ public class ACMEVideos {
                     Integer anoFim = Integer.parseInt(vetor[4]);
                     Integer numEpisodios = Integer.parseInt(vetor[5]);
 
-                    video = new Seriado(codigo,titulo,anoInicio,anoFim,numEpisodios);
+                    video = new Seriado(codigo, titulo, anoInicio, anoFim, numEpisodios);
                 }
 
 
@@ -93,19 +97,64 @@ public class ACMEVideos {
         }
     }
 
-    public void getTituloMaisLongo(){
+    public void getTituloMaisLongo() {
 
-        if(acervo.getVideo().isEmpty()){
+        if (acervo.getVideo().isEmpty()) {
             System.out.println("2: Erro - nenhum vídeo cadastrado.");
+            return;
         }
 
         Video maisLongo = acervo.getVideo().getFirst();
         for (Video v : acervo.getVideo()) {
-            if(v.getTitulo().length() > maisLongo.getTitulo().length()){
+            if (v.getTitulo().length() > maisLongo.getTitulo().length()) {
                 maisLongo = v;
             }
         }
-        String tituloMaisLongo = "2: "+  maisLongo.getCodigo()+ " - " +maisLongo.getTitulo();
+        String tituloMaisLongo = "2: " + maisLongo.getCodigo() + " - " + maisLongo.getTitulo();
         System.out.println(tituloMaisLongo);
+    }
+
+    public void getCustoMaisBaixo() {
+        if (acervo.getVideo().isEmpty()) {
+            System.out.println("3: Erro - nenhum vídeo cadastrado.");
+            return;
+        }
+
+        Video custoMaisBaixo = acervo.getVideo().getFirst();
+        for (Video v : acervo.getVideo()) {
+            if (custoMaisBaixo.calculaCusto() > v.calculaCusto()) {
+                custoMaisBaixo = v;
+            }
+        }
+
+        String videoCustoMaisBaixo = "3: " + custoMaisBaixo.getCodigo() + " - " + custoMaisBaixo.getTitulo()
+                + " " + String.format("%.2f", custoMaisBaixo.calculaCusto());
+        System.out.println(videoCustoMaisBaixo);
+    }
+
+    public void getMaiorSeriado() {
+        if (acervo.getVideo().isEmpty()) {
+            System.out.println("4: Erro - nenhum seriado cadastrado.");
+            return;
+        }
+
+        Seriado maiorSeriado = null;
+
+        for (Video v : acervo.getVideo()) {
+            if (v instanceof Seriado) {
+                Seriado seriado = (Seriado) v;
+                if (maiorSeriado == null || seriado.calculaCusto() > maiorSeriado.calculaTempo()) {
+                    maiorSeriado = seriado;
+                }
+            }
+        }
+
+        if (maiorSeriado == null) {
+            System.out.println("4: Erro - nenhum seriado encontrado.");
+            return;
+        }
+
+        String maiorSeriadoTempo = "4: " + maiorSeriado.getCodigo() + " - " + maiorSeriado.getTitulo() + " = " + maiorSeriado.calculaTempo();
+        System.out.println(maiorSeriadoTempo);
     }
 }

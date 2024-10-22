@@ -28,6 +28,11 @@ public class Filme extends Video {
 
 	@Override
     public String geraTexto(){
-		return "1: "+getCodigo() + " - " + getTitulo() + " - " + getDiretor() + " - " + getDuracao();
+		return "1: " + getCodigo() + " - " + getTitulo() + " - " + getDiretor() + " - " + String.format("%.2f", getDuracao());
+
+	}
+	@Override
+	public double calculaCusto(){
+		return duracao * 0.3;
 	}
 }

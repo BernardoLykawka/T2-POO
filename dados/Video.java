@@ -25,7 +25,6 @@ public abstract class Video implements Imprimivel {
 	 */
 	public double calculaCusto() {
 		return 0;
-
 	}
 
 	public String getTitulo() {
