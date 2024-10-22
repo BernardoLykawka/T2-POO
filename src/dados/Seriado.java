@@ -5,6 +5,13 @@ public class Seriado extends Video {
 	private int anoFim;
 	private int numEpisodios;
 
+	public Seriado(int codigo, String titulo, int anoInicio, int anoFim, int numEpisodios) {
+		super(codigo,titulo);
+		this.anoInicio = anoInicio;
+		this.anoFim = anoFim;
+		this.numEpisodios = numEpisodios;
+	}
+
 	public int getAnoInicio() {
 		return anoInicio;
 	}
