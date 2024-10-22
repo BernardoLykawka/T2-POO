@@ -1,11 +1,17 @@
 package dados;
 
 public class Acervo {
-
 	private ArrayList<Video> video;
 
 	public boolean addVideo(Video v) {
-		return false;
+		return video.add(v);
 	}
 
+	public ArrayList<Video> getVideo() {
+		return video;
+	}
+
+	public void setVideo(ArrayList<Video> video) {
+		this.video = video;
+	}
 }
