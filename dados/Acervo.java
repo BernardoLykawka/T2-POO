@@ -14,7 +14,7 @@ public class Acervo {
 	}
 
 	public ArrayList<Video> getVideo() {
-		return video;
+		return (ArrayList<Video>) video.clone();
 	}
 
 	public void setVideo(ArrayList<Video> video) {
