@@ -1,8 +1,1 @@
-
-1: 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,33
-1: 22 - Friends - 1994 - 2004 - 236 - 118,00
-2: 11 - Star Wars: Episode IV: A New Hope
-3: 11 - Star Wars: Episode IV: A New Hope 36,33
-4: 22 - Friends = 10
-5: George Lucas - 1
-6: 77,16, 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,33
+6: 77,16, 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,331: 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,331: 22 - Friends - 1994 - 2004 - 236 - 118,002: 11 - Star Wars: Episode IV: A New Hope3: 11 - Star Wars: Episode IV: A New Hope 36,334: 22 - Friends = 105: George Lucas - 16: 77,16, 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,331: 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,331: 22 - Friends - 1994 - 2004 - 236 - 118,002: 11 - Star Wars: Episode IV: A New Hope3: 11 - Star Wars: Episode IV: A New Hope 36,334: 22 - Friends = 105: George Lucas - 16: 77,16, 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,331: 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,331: 22 - Friends - 1994 - 2004 - 236 - 118,002: 11 - Star Wars: Episode IV: A New Hope3: 11 - Star Wars: Episode IV: A New Hope 36,334: 22 - Friends = 105: George Lucas - 16: 77,16, 1: 11 - Star Wars: Episode IV: A New Hope - George Lucas - 121,10 - 36,33

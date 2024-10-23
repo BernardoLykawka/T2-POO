@@ -38,12 +38,13 @@ public class Seriado extends Video {
 
 	@Override
 	public String geraTexto(){
-		return getCodigo() + " - " + getTitulo() + " - " + getAnoInicio() + " - " + getAnoFim() + " - " + getNumEpisodios() + " - " + String.format("%.2f", calculaCusto());
+		return getCodigo() + " - " + getTitulo() + " - " + getAnoInicio() + " - " + getAnoFim() + " - "
+				+ getNumEpisodios() + " - " + String.format("%.2f", calculaCusto());
 	}
 
 	@Override
 	public double calculaCusto(){
-        return numEpisodios*0.5;
+        return numEpisodios * 0.5;
     }
 
 	public int calculaTempo(){

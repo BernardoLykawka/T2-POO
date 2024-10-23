@@ -18,6 +18,7 @@ public class ACMEVideos {
 
 
     public void processar() {
+        limpaRelatorio();
         leArquivos();
         getTituloMaisLongo();
         getCustoMaisBaixo();
@@ -63,7 +64,6 @@ public class ACMEVideos {
 
 
                     if (FilmeSerie == 1) {                              //se for filme
-
                         if (vetor.length != 5) {
                             break;
                         }
@@ -240,10 +240,9 @@ public class ACMEVideos {
 
     public void imprimeTexto(String texto) {
         try {
-            PrintWriter pw = new PrintWriter(new FileOutputStream("relatorio.txt", true), true);
-            pw.println(texto);
-            pw.close();
-
+            BufferedWriter bw = new BufferedWriter(new FileWriter("relatorio.txt", true));;
+            bw.write(texto);
+            bw.close();
         } catch (IOException e) {
             System.out.println("Erro: " + e.getMessage());
         }
