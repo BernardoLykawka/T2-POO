@@ -1,10 +1,6 @@
 package app;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
+import java.io.*;
 
 import dados.Acervo;
 import dados.Filme;
@@ -27,6 +23,7 @@ public class ACMEVideos {
         getCustoMaisBaixo();
         getMaiorSeriado();
         getDiretorMaisFilmes();
+        getMenorDesvioPadrao();
     }
 
     public void leArquivos() {
@@ -37,73 +34,81 @@ public class ACMEVideos {
             String linha = br.readLine();
             while (linha != null) {
 
+                try {
+                    String[] vetor = linha.split(";");
+                    Integer FilmeSerie = Integer.parseInt(vetor[0]);
+                    Integer codigo = Integer.parseInt(vetor[1]);
 
-                String[] vetor = linha.split(";");
-                Integer FilmeSerie = Integer.parseInt(vetor[0]);
-                Integer codigo = Integer.parseInt(vetor[1]);
-
-                boolean found = false;
-                for (Video v : acervo.getVideo()) {
-                    if (codigo.equals(v.getCodigo())) {
-                        System.out.println("1: Erro - codigo de video repetido.");
-                        found = true;
-                        break;
+                    boolean found = false;
+                    for (Video v : acervo.getVideo()) {
+                        if (codigo.equals(v.getCodigo())) {
+                            String textoErroRepetido = ("1: Erro - codigo de video repetido.");
+                            imprimeTexto(textoErroRepetido);
+                            found = true;
+                            break;
+                        }
                     }
-                }
-                if (found) {
+                    if (found) {
+                        linha = br.readLine();
+                        continue;
+                    }
+
+                    String titulo = vetor[2];
+
+                    String confere = Integer.toString(codigo);
+                    if (Character.getNumericValue(confere.charAt(0)) != FilmeSerie) {
+                        linha = br.readLine();
+                        continue;
+                    }
+
+
+                    if (FilmeSerie == 1) {                              //se for filme
+
+                        if (vetor.length != 5) {
+                            break;
+                        }
+
+                        String diretor = vetor[3];
+                        Double duracao = Double.parseDouble(vetor[4]);
+
+
+                        video = new Filme(codigo, titulo, diretor, duracao);
+
+                    } else {                                            //se for seriado
+
+                        if (vetor.length != 6) {
+                            break;
+                        }
+
+                        Integer anoInicio = Integer.parseInt(vetor[3]);
+                        Integer anoFim = Integer.parseInt(vetor[4]);
+                        Integer numEpisodios = Integer.parseInt(vetor[5]);
+
+                        video = new Seriado(codigo, titulo, anoInicio, anoFim, numEpisodios);
+                    }
+
+
+                    String saida1 = ("1: " + video.geraTexto());
+                    imprimeTexto(saida1);
+                    acervo.addVideo(video);
                     linha = br.readLine();
-                    continue;
-                }
-
-                String titulo = vetor[2];
-
-                String confere = Integer.toString(codigo);
-                if (Character.getNumericValue(confere.charAt(0)) != FilmeSerie) {
+                } catch (NumberFormatException e) {
+                    String textoErro1 = ("1: Erro - Formato de texto.");
+                    imprimeTexto(textoErro1);
                     linha = br.readLine();
-                    continue;
                 }
-
-
-                if (FilmeSerie == 1) {                              //se for filme
-
-                    if (vetor.length != 5) {
-                        break;
-                    }
-
-                    String diretor = vetor[3];
-                    Double duracao = Double.parseDouble(vetor[4]);
-
-
-                    video = new Filme(codigo, titulo, diretor, duracao);
-
-                } else {                                            //se for seriado
-
-                    if (vetor.length != 6) {
-                        break;
-                    }
-
-                    Integer anoInicio = Integer.parseInt(vetor[3]);
-                    Integer anoFim = Integer.parseInt(vetor[4]);
-                    Integer numEpisodios = Integer.parseInt(vetor[5]);
-
-                    video = new Seriado(codigo, titulo, anoInicio, anoFim, numEpisodios);
-                }
-
-
-                System.out.println("1: " + video.geraTexto());                  // DEVE SAIR NO ARQUIVO .TXT
-                acervo.addVideo(video);
-                linha = br.readLine();
             }
 
         } catch (IOException e) {
-            System.out.println("1: Erro: " + e.getMessage());
+            String textoErro1 = ("1: Erro: " + e.getMessage());
+            imprimeTexto(textoErro1);
         }
     }
 
     public void getTituloMaisLongo() {
 
         if (acervo.getVideo().isEmpty()) {
-            System.out.println("2: Erro - nenhum vídeo cadastrado.");
+            String textoErro2 = ("2: Erro - nenhum vídeo cadastrado.");
             return;
         }
 
@@ -114,12 +119,13 @@ public class ACMEVideos {
             }
         }
         String tituloMaisLongo = "2: " + maisLongo.getCodigo() + " - " + maisLongo.getTitulo();
-        System.out.println(tituloMaisLongo);
+        imprimeTexto(tituloMaisLongo);
     }
 
     public void getCustoMaisBaixo() {
         if (acervo.getVideo().isEmpty()) {
-            System.out.println("3: Erro - nenhum vídeo cadastrado.");
+            String textoErro3 = "3: Erro - nenhum vídeo cadastrado.";
+            imprimeTexto(textoErro3);
             return;
         }
 
@@ -132,12 +138,13 @@ public class ACMEVideos {
 
         String videoCustoMaisBaixo = "3: " + custoMaisBaixo.getCodigo() + " - " + custoMaisBaixo.getTitulo()
                 + " " + String.format("%.2f", custoMaisBaixo.calculaCusto());
-        System.out.println(videoCustoMaisBaixo);
+        imprimeTexto(videoCustoMaisBaixo);
     }
 
     public void getMaiorSeriado() {
         if (acervo.getVideo().isEmpty()) {
-            System.out.println("4: Erro - nenhum seriado cadastrado.");
+            String textoErro4 = ("4: Erro - nenhum seriado cadastrado.");
+            imprimeTexto(textoErro4);
             return;
         }
 
@@ -153,17 +160,19 @@ public class ACMEVideos {
         }
 
         if (maiorSeriado == null) {
-            System.out.println("4: Erro - nenhum seriado encontrado.");
+            String textoErro4 = ("4: Erro - nenhum seriado encontrado.");
+            imprimeTexto(textoErro4);
             return;
         }
 
         String maiorSeriadoTempo = "4: " + maiorSeriado.getCodigo() + " - " + maiorSeriado.getTitulo() + " = " + maiorSeriado.calculaTempo();
-        System.out.println(maiorSeriadoTempo);
+        imprimeTexto(maiorSeriadoTempo);
     }
 
     public void getDiretorMaisFilmes() {
         if (acervo.getVideo().isEmpty()) {
-            System.out.println("5: Erro - nenhum filme cadastrado.");
+            String textoErro5 = ("5: Erro - nenhum filme cadastrado.");
+            imprimeTexto(textoErro5);
             return;
         }
 
@@ -175,24 +184,69 @@ public class ACMEVideos {
             if (v instanceof Filme) {
                 countMovies = 0;
 
-                for(Video vd : acervo.getVideo()) {
-                    if(vd instanceof Filme) {
-                        if(((Filme) vd).getDiretor().equals(((Filme) v).getDiretor())) {
+                for (Video vd : acervo.getVideo()) {
+                    if (vd instanceof Filme) {
+                        if (((Filme) vd).getDiretor().equals(((Filme) v).getDiretor())) {
                             countMovies++;
                         }
                     }
 
-                    if(numeroFilmes < countMovies) {
+                    if (numeroFilmes < countMovies) {
                         numeroFilmes = countMovies;
                         diretorMaisFilme = (Filme) v;
                     }
                 }
             }
         }
-        if(diretorMaisFilme == null) {
-            System.out.println("5: Erro - nenhum filme cadastrado.");
+        if (diretorMaisFilme == null) {
+            String textoErro5 = ("5: Erro - nenhum filme cadastrado.");
+            imprimeTexto(textoErro5);
             return;
         }
-        System.out.println("5: " + diretorMaisFilme.getDiretor() + " - " + numeroFilmes);
+        String saida5 = "5: " + diretorMaisFilme.getDiretor() + " - " + numeroFilmes;
+        imprimeTexto(saida5);
+    }
+
+    public void getMenorDesvioPadrao() {
+        double somaCusto = 0;
+        int contador = 0;
+
+        for (Video v : acervo.getVideo()) {
+            somaCusto += v.calculaCusto();
+            contador++;
+        }
+
+        double mediaCusto = somaCusto / contador;
+
+        Video menorDesvioVideo = null;
+        double menorDesvio = Double.MAX_VALUE;
+
+
+        for (Video v : acervo.getVideo()) {
+            double custo = v.calculaCusto();
+            double desvio = Math.abs(custo - mediaCusto);
+
+
+            if (desvio < menorDesvio) {
+                menorDesvio = desvio;
+                menorDesvioVideo = v;
+            }
+        }
+
+        // Exibe o resultado formatado
+        String saida6 = "6: " + String.format("%.2f", mediaCusto) + ", " + (menorDesvioVideo != null ? menorDesvioVideo.geraTexto() : "Nenhum vídeo encontrado");
+        imprimeTexto(saida6);
+    }
+
+    public void imprimeTexto(String texto) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileOutputStream("relatorio.txt", true), true);
+            pw.println(texto);
+            pw.close();
+
+        } catch (IOException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 }
+
